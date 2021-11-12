@@ -36,7 +36,7 @@ def train_and_eval_lp_pipe(driver):
               'lp-projection',
               {
                 NewsWithContext:{properties:['wikiEmbedding']},
-                EntityWithContext:{properties:['wikiEmbedding']}
+                WikiEntity:{properties:['wikiEmbedding']}
               },
               {
                 TITLE_ABOUT:{
@@ -96,7 +96,7 @@ def train_and_eval_lp_pipe(driver):
         run(driver, textwrap.dedent("""\
             CALL gds.alpha.ml.pipeline.linkPrediction.configureParams('pipe', [
               {
-                penalty: $penalty,
+                penalty: 0.001,
                 patience: 3,
                 maxEpochs: 1000,
                 tolerance: 0.0001
@@ -137,11 +137,9 @@ def main():
             'normalizationStrength': 0.0,
             'iterationWeight2': 1.0,
             'iterationWeight3': 1.0,
-            'iterationWeight4': 0.2,
-            'iterationWeight5': 0.2,
             'propertyRatio': 0.8,
             'embeddingDimension': 132,
-            'penalty': 1e-3,
+            #'penalty': 1e-3,
         }
 
 
@@ -149,14 +147,12 @@ def main():
             # [0, 0, 1, 3.14]k
             iteration_weight2 = trial.suggest_float("iteration_weight2", 0.01, 1)
             iteration_weight3 = trial.suggest_float("iteration_weight3", 0.01, 1)
-            iteration_weight4 = trial.suggest_float("iteration_weight4", 0.01, 1)
-            iteration_weight5 = trial.suggest_float("iteration_weight5", 0.01, 1)
             params = {
                 "normalizationStrength": trial.suggest_float("normalizationStrength", -1, 1),
-                "iterationWeights": [0.0, iteration_weight2, iteration_weight3, iteration_weight4, iteration_weight5],
-                "propertyRatio": trial.suggest_float("propertyRatio", 0.05, 1.0, log=True),
-                "embeddingDimension": trial.suggest_int("embeddingDimension", 64, 256, log=True),
-                "penalty": trial.suggest_float("penalty", 1e-4, 1e3, log=True)
+                "iterationWeights": [0.0, iteration_weight2, iteration_weight3],
+                "propertyRatio": trial.suggest_float("propertyRatio", 0.001, 1.0, log=True),
+                "embeddingDimension": trial.suggest_int("embeddingDimension", 64, 300, log=True),
+               # "penalty": trial.suggest_float("penalty", 1e-4, 1e3, log=True)
             }
             return objective(params)
 

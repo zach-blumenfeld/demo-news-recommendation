@@ -1,8 +1,4 @@
-:use neo4j;
-CREATE DATABASE mind;
-:use mind
-
-//create Constraints
+//create constraints
 CREATE CONSTRAINT userId_not_null ON (user:User) ASSERT user.userId IS NOT NULL;
 CREATE CONSTRAINT userId_unique ON (user:User) ASSERT user.userId  IS UNIQUE;
 
@@ -54,7 +50,7 @@ RETURN count(entity);
 //load wiki entity embeddings
 LOAD CSV WITH HEADERS FROM 'file:///entities-embedding.csv' AS row
 MATCH (entity:WikiEntity {wikidataId: row.WikidataId})
-SET entity.wikiEmbedding = toFloatList(split(row.entityEmbedding, ';'))
+SET entity.wikiEncoding = toFloatList(split(row.entityEmbedding, ';'))
 RETURN count(entity);
 
 //load historic clicks
