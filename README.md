@@ -10,11 +10,11 @@ To run the demo yourself, you first need to format and ingest the data into Neo4
 
 Once that is done you can run the following Embedding examples:
 
-1. __(TK):__ `fastrp-tsne-visualization.ipynb`: visualize fastRP embeddings structure with News categories 
-2. __(TK):__  `node2vec-example.cypher`: example of node2vec embedding in Neo4j Browser
-3. __(TK):__ `graphsage-example.cypher`: example of graphsage embedding in Neo4j Browser
+1. `fastrp-tsne-visualization.ipynb`: visualize fastRP embeddings structure with News categories 
+2. `node2vec-example.cypher`: example of node2vec embedding in Neo4j Browser
+3. `graphsage-example.cypher`: example of graphsage embedding in Neo4j Browser
 
-And the search recommendation example that leverages Collaborative Filtering:  __(TK):__ `collab-filtering-example.cypher`.
+And the search recommendation example that leverages Collaborative Filtering:  __(TK):__ `collab-filtering-example.ipynb`.
 
 ## Prerequisites
 - Neo4j >= 4.3.x. This notebook was tested with [Neo4j Desktop](https://neo4j.com/download-center/#desktop) 
@@ -30,7 +30,7 @@ systems. CF is used to make automatic predictions for a user’s preferences bas
 similar interests. For the MIND graph, common interests translate to “co-click” relationships between news articles.
 
 Graph is well suited for applying CF as the relationships between user's preferences is baked into the data model and 
-basic forms of CF are easily accomplished with simple graph traversals. in `collab-filtering-example.cypher` we show
+basic forms of CF are easily accomplished with simple graph traversals. in `collab-filtering-example.ipynb` we show
 how CF can be scaled using FastRP embeddings in combination with K-nearest Neighbors (KNN) to reduce the dimentionalty 
 of the problem while identifying similar news articles. 
 
