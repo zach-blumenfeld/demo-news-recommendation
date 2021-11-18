@@ -1,37 +1,38 @@
-# Demo: Exploring News Recommendation With Neo4j GDS
-Demo to explore how Neo4j & Graph Data Science (GDS) functionality, including Embeddings, K-Nearest Neighbor (KNN), 
-Link Prediction (LP) Pipelines, and more can be used for news recommendation. This demo uses a real-world dataset described in the [Source Dataset](#sd) section below. 
+# Demo: Exploring Embeddings and News Recommendation With Neo4j GDS
+Demo to explore Neo4j & Graph Data Science (GDS) functionality with a focus on Embeddings, including a 
+Search Recommendation example that leverages Collaborative Filtering. 
 
-To run the demo yourself, you first need to format and ingest the data into Neo4j as described in 
-[Data Preparation and Ingest](#dpi). Once that is done you can run the Cypher and GDS steps described in the 
-[Running the Analysis](#a) section. Please also  check the [Prerequisites](#prereqs) 
-for proper software and versioning. 
-
-## <a id="prereqs">Prerequisites</a>
-- Neo4j Desktop (or other on-prem server installation) with Neo4j>=4.3.x 
-- Graph Data Science (GDS) Library >=1.8
-- Notebook uses Python=3.9.7
-
-## <a id="dpi">Data Preparation and Ingest</a>
-
-### <a id="sd">Source Dataset</a>
-We will use the Microsoft [MIND-Small Dataset](https://msnews.github.io/#:~:text=name%20this%20dataset-,MIND-small,-.%20The%20training%20and)
+This demo uses the Microsoft [MIND-Small Dataset](https://msnews.github.io/#:~:text=name%20this%20dataset-,MIND-small,-.%20The%20training%20and)
 which is a sample of anonymized users and their click behaviors on the Microsoft News website [[1]](#1).
 
-### Directions for Creating the Neo4j Graph
-1. Download the MIND-small dataset (both training and validation), unzip and place in a subdirectory named `./data`
-2. Run the `data-prep-and-ingest/prepare-data.ipynb` notebook to prepare the data for Neo4j ingest.
-3. Run the commands in the `data-prep-and-ingest/ingest.cypher`. These commands are best submitted sequentially,
-either through the Neo4j Browser, command line, or via your choice driver. 
+To run the demo yourself, you first need to format and ingest the data into Neo4j following the
+`prepare-and-load-data.ipynb` notebook. 
 
-## <a id="a">Running the Analysis</a>
-Once the data is loaded, the demo can be run via the scripts in the `analysis` directory. Below are the scripts, in order
-1. `step-0-data-profiling.cypher`: Quick commands to understand Schema, indexes, and aggregate stats for the graph.
-2. `step-1-data-preperation.cypher`: Data cleaning and formatting tasks .
-3. `step-2-search.cypher`: (Optional) Leverage Lucene based full-text index and PageRank for search       
-4. `step-3-collab-filtering.cypher`: News Recommendation with Collaborative Filtering. Predict user preferences with Unsupervized ML
-5. `step-4-link-prediction.cypher`:  Use Link Prediction (Supervised ML) to Predict future user preferences based on news context.
-6. `step-5-clean-up.cypher`: Script to clean up properties, labels, relationships, projections, and models generated from analysis.
+Once that is done you can run the following Embedding examples:
+
+1. __(TK):__ `fastrp-tsne-visualization.ipynb`: visualize fastRP embeddings structure with News categories 
+2. __(TK):__  `node2vec-example.cypher`: example of node2vec embedding in Neo4j Browser
+3. __(TK):__ `graphsage-example.cypher`: example of graphsage embedding in Neo4j Browser
+
+And the search recommendation example that leverages Collaborative Filtering:  __(TK):__ `collab-filtering-example.cypher`.
+
+## Prerequisites
+- Neo4j >= 4.3.x. This notebook was tested with [Neo4j Desktop](https://neo4j.com/download-center/#desktop) 
+and should work for other on-prem installations.
+- [APOC library](https://neo4j.com/labs/apoc/4.3/installation/).  This project was tested with APOC 4.3. 
+- [Graph Data Science (GDS) Library](https://neo4j.com/docs/graph-data-science/current/installation/) >=1.7.2
+- Notebooks tested with Python=3.8
+
+
+## Collaborative Filtering
+[Collaborative Filtering (CF)](https://en.wikipedia.org/wiki/Collaborative_filtering) is a technique used by recommender 
+systems. CF is used to make automatic predictions for a user’s preferences based on the activity of other users with 
+similar interests. For the MIND graph, common interests translate to “co-click” relationships between news articles.
+
+Graph is well suited for applying CF as the relationships between user's preferences is baked into the data model and 
+basic forms of CF are easily accomplished with simple graph traversals. in `collab-filtering-example.cypher` we show
+how CF can be scaled using FastRP embeddings in combination with K-nearest Neighbors (KNN) to reduce the dimentionalty 
+of the problem while identifying similar news articles. 
 
 ## References
 <a id="1">[1]</a>
