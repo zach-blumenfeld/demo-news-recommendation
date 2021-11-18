@@ -14,7 +14,7 @@ Once that is done you can run the following Embedding examples:
 2. `node2vec-example.cypher`: example of node2vec embedding in Neo4j Browser
 3. `graphsage-example.cypher`: example of graphsage embedding in Neo4j Browser
 
-And the search recommendation example that leverages Collaborative Filtering:  __(TK):__ `collab-filtering-example.ipynb`.
+And the search recommendation example that leverages Collaborative Filtering:  `collab-filtering-example.ipynb`.
 
 ## Prerequisites
 - Neo4j >= 4.3.x. This notebook was tested with [Neo4j Desktop](https://neo4j.com/download-center/#desktop) 
